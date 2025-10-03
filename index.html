@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Info Med - Kwara State Library</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: white;
+            padding: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .header-text h1 {
+            color: #667eea;
+            font-size: 1.8rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .header-text p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .welcome-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .welcome-card h2 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .search-container {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .search-box {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .search-box input {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .search-box button {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .search-box button:hover {
+            transform: translateY(-2px);
+        }
+
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .category-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .category-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+            margin-bottom: 1rem;
+        }
+
+        .category-card h3 {
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .category-card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .info-section {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            display: none;
+        }
+
+        .info-section.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .info-section h2 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .info-section h3 {
+            color: #764ba2;
+            margin-top: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .info-section ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        .emergency-banner {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .emergency-banner h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        .emergency-number {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: #666;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 1rem;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background: #555;
+        }
+
+        .footer {
+            background: white;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .footer p {
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+
+            .categories {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div class="logo">IM</div>
+            <div class="header-text">
+                <h1>Info Med</h1>
+                <p>Kwara State Library - Bridging Medical Information Gaps</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="emergency-banner">
+            <h3>⚠️ Medical Emergency?</h3>
+            <div class="emergency-number">Call 112 or 767</div>
+            <p>For immediate medical assistance in Kwara State</p>
+        </div>
+
+        <div id="mainContent">
+            <div class="welcome-card">
+                <h2>Welcome to Info Med</h2>
+                <p>Your trusted source for reliable medical information in Kwara State. We provide evidence-based health information to help you make informed decisions about your health and wellbeing. Browse by category below or use the search function to find specific health topics.</p>
+            </div>
+
+            <div class="search-container">
+                <h3 style="margin-bottom: 1rem; color: #667eea;">Search Health Topics</h3>
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search for diseases, symptoms, treatments...">
+                    <button onclick="searchHealth()">🔍 Search</button>
+                </div>
+            </div>
+
+            <h2 style="color: white; margin-bottom: 1rem; text-align: center;">Health Information Categories</h2>
+            
+            <div class="categories">
+                <div class="category-card" onclick="showCategory('diseases')">
+                    <div class="category-icon">🦠</div>
+                    <h3>Common Diseases</h3>
+                    <p>Learn about prevention, symptoms, and treatment of common diseases in Nigeria</p>
+                </div>
+
+                <div class="category-card" onclick="showCategory('maternal')">
+                    <div class="category-icon">👶</div>
+                    <h3>Maternal & Child Health</h3>
+                    <p>Essential information for mothers and child care</p>
+                </div>
+
+                <div class="category-card" onclick="showCategory('nutrition')">
+                    <div class="category-icon">🥗</div>
+                    <h3>Nutrition & Wellness</h3>
+                    <p>Healthy eating guidelines and lifestyle tips</p>
+                </div>
+
+                <div class="category-card" onclick="showCategory('vaccination')">
+                    <div class="category-icon">💉</div>
+                    <h3>Vaccination Schedule</h3>
+                    <p>Immunization information for all ages</p>
+                </div>
+
+                <div class="category-card" onclick="showCategory('mental')">
+                    <div class="category-icon">🧠</div>
+                    <h3>Mental Health</h3>
+                    <p>Understanding and supporting mental wellbeing</p>
+                </div>
+
+                <div class="category-card" onclick="showCategory('firstaid')">
+                    <div class="category-icon">🏥</div>
+                    <h3>First Aid</h3>
+                    <p>Emergency response and basic first aid techniques</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Disease Information Section -->
+        <div id="diseases" class="info-section">
+            <button class="back-button" onclick="goBack()">← Back to Categories</button>
+            <h2>Common Diseases in Nigeria</h2>
+            
+            <h3>Malaria</h3>
+            <p><strong>What is it?</strong> A life-threatening disease caused by parasites transmitted through mosquito bites.</p>
+            <p><strong>Symptoms:</strong></p>
+            <ul>
+                <li>High fever and chills</li>
+                <li>Severe headache</li>
+                <li>Body aches and fatigue</li>
+                <li>Nausea and vomiting</li>
+            </ul>
+            <p><strong>Prevention:</strong></p>
+            <ul>
+                <li>Sleep under insecticide-treated nets</li>
+                <li>Use mosquito repellents</li>
+                <li>Keep environment clean and drain stagnant water</li>
+                <li>Take antimalarial drugs as prescribed</li>
+            </ul>
+
+            <h3>Typhoid Fever</h3>
+            <p><strong>What is it?</strong> A bacterial infection spread through contaminated food and water.</p>
+            <p><strong>Symptoms:</strong></p>
+            <ul>
+                <li>Prolonged high fever</li>
+                <li>Weakness and stomach pain</li>
+                <li>Headache and loss of appetite</li>
+                <li>Constipation or diarrhea</li>
+            </ul>
+            <p><strong>Prevention:</strong></p>
+            <ul>
+                <li>Drink only clean, treated water</li>
+                <li>Wash hands regularly with soap</li>
+                <li>Eat properly cooked food</li>
+                <li>Get typhoid vaccination</li>
+            </ul>
+
+            <h3>Hypertension (High Blood Pressure)</h3>
+            <p><strong>What is it?</strong> A condition where blood pressure is consistently too high.</p>
+            <p><strong>Risk Factors:</strong></p>
+            <ul>
+                <li>Excessive salt intake</li>
+                <li>Obesity and lack of exercise</li>
+                <li>Stress and family history</li>
+                <li>Smoking and excessive alcohol</li>
+            </ul>
+            <p><strong>Management:</strong></p>
+            <ul>
+                <li>Regular blood pressure monitoring</li>
+                <li>Reduce salt intake</li>
+                <li>Exercise regularly</li>
+                <li>Take prescribed medications</li>
+                <li>Maintain healthy weight</li>
+            </ul>
+        </div>
+
+        <!-- Maternal & Child Health Section -->
+        <div id="maternal" class="info-section">
+            <button class="back-button" onclick="goBack()">← Back to Categories</button>
+            <h2>Maternal & Child Health</h2>
+            
+            <h3>Antenatal Care</h3>
+            <p>Pregnant women should attend at least 8 antenatal visits:</p>
+            <ul>
+                <li>First visit: Before 12 weeks of pregnancy</li>
+                <li>Regular check-ups throughout pregnancy</li>
+                <li>Blood tests and ultrasound scans</li>
+                <li>Nutrition counseling and supplements</li>
+                <li>Tetanus vaccination</li>
+            </ul>
+
+            <h3>Breastfeeding</h3>
+            <p><strong>Benefits:</strong></p>
+            <ul>
+                <li>Provides complete nutrition for baby</li>
+                <li>Protects against infections</li>
+                <li>Promotes bonding between mother and child</li>
+                <li>Reduces risk of childhood diseases</li>
+            </ul>
+            <p><strong>Recommendations:</strong></p>
+            <ul>
+                <li>Exclusive breastfeeding for first 6 months</li>
+                <li>Continue breastfeeding up to 2 years and beyond</li>
+                <li>Introduce complementary foods after 6 months</li>
+            </ul>
+
+            <h3>Child Development Milestones</h3>
+            <p><strong>0-6 months:</strong> Smiles, rolls over, reaches for objects</p>
+            <p><strong>6-12 months:</strong> Sits without support, crawls, says first words</p>
+            <p><strong>1-2 years:</strong> Walks independently, speaks short sentences</p>
+            <p><strong>2-3 years:</strong> Runs, climbs, speaks in sentences</p>
+            <p style="margin-top: 1rem;"><strong>Note:</strong> If your child is not meeting milestones, consult a healthcare provider.</p>
+        </div>
+
+        <!-- Nutrition Section -->
+        <div id="nutrition" class="info-section">
+            <button class="back-button" onclick="goBack()">← Back to Categories</button>
+            <h2>Nutrition & Wellness</h2>
+            
+            <h3>Balanced Diet</h3>
+            <p>A healthy diet should include:</p>
+            <ul>
+                <li><strong>Carbohydrates:</strong> Rice, yam, cassava, bread, plantain</li>
+                <li><strong>Proteins:</strong> Beans, fish, meat, eggs, milk</li>
+                <li><strong>Vitamins & Minerals:</strong> Fruits and vegetables (especially leafy greens)</li>
+                <li><strong>Water:</strong> At least 8 glasses daily</li>
+            </ul>
+
+            <h3>Foods to Limit</h3>
+            <ul>
+                <li>Excessive salt and sugary drinks</li>
+                <li>Fried and fatty foods</li>
+                <li>Processed foods with preservatives</li>
+                <li>Excessive alcohol</li>
+            </ul>
+
+            <h3>Healthy Living Tips</h3>
+            <ul>
+                <li>Exercise at least 30 minutes daily</li>
+                <li>Get 7-8 hours of sleep</li>
+                <li>Manage stress through relaxation</li>
+                <li>Regular medical check-ups</li>
+                <li>Avoid tobacco and limit alcohol</li>
+            </ul>
+        </div>
+
+        <!-- Vaccination Section -->
+        <div id="vaccination" class="info-section">
+            <button class="back-button" onclick="goBack()">← Back to Categories</button>
+            <h2>Vaccination Schedule</h2>
+            
+            <h3>Childhood Immunization</h3>
+            <p><strong>At Birth:</strong></p>
+            <ul>
+                <li>BCG (Tuberculosis)</li>
+                <li>Hepatitis B (1st dose)</li>
+                <li>Oral Polio Vaccine</li>
+            </ul>
+
+            <p><strong>6 Weeks:</strong></p>
+            <ul>
+                <li>Pentavalent (DPT, Hepatitis B, Hib) - 1st dose</li>
+                <li>Oral Polio Vaccine - 1st dose</li>
+                <li>Pneumococcal vaccine - 1st dose</li>
+            </ul>
+
+            <p><strong>10 Weeks:</strong></p>
+            <ul>
+                <li>Pentavalent - 2nd dose</li>
+                <li>Oral Polio Vaccine - 2nd dose</li>
+                <li>Pneumococcal vaccine - 2nd dose</li>
+            </ul>
+
+            <p><strong>14 Weeks:</strong></p>
+            <ul>
+                <li>Pentavalent - 3rd dose</li>
+                <li>Oral Polio Vaccine - 3rd dose</li>
+                <li>Pneumococcal vaccine - 3rd dose</li>
+            </ul>
+
+            <p><strong>9 Months:</strong></p>
+            <ul>
+                <li>Measles vaccine</li>
+                <li>Yellow Fever vaccine</li>
+            </ul>
+
+            <h3>Adult Vaccinations</h3>
+            <ul>
+                <li>Tetanus booster every 10 years</li>
+                <li>Hepatitis B (if not vaccinated)</li>
+                <li>Influenza (annual for elderly)</li>
+                <li>COVID-19 vaccination</li>
+            </ul>
+        </div>
+
+        <!-- Mental Health Section -->
+        <div id="mental" class="info-section">
+            <button class="back-button" onclick="goBack()">← Back to Categories</button>
+            <h2>Mental Health</h2>
+            
+            <h3>Understanding Mental Health</h3>
+            <p>Mental health is just as important as physical health. It affects how we think, feel, and act.</p>
+
+            <h3>Common Mental Health Conditions</h3>
+            <p><strong>Depression:</strong></p>
+            <ul>
+                <li>Persistent sadness and loss of interest</li>
+                <li>Changes in sleep and appetite</li>
+                <li>Difficulty concentrating</li>
+                <li>Feelings of hopelessness</li>
+            </ul>
+
+            <p><strong>Anxiety:</strong></p>
+            <ul>
+                <li>Excessive worry and fear</li>
+                <li>Restlessness and tension</li>
+                <li>Rapid heartbeat</li>
+                <li>Difficulty sleeping</li>
+            </ul>
+
+            <h3>Maintaining Good Mental Health</h3>
+            <ul>
+                <li>Talk to friends and family</li>
+                <li>Exercise regularly</li>
+                <li>Get enough sleep</li>
+                <li>Eat healthy meals</li>
+                <li>Practice relaxation techniques</li>
+                <li>Seek professional help when needed</li>
+            </ul>
+
+            <h3>When to Seek Help</h3>
+            <p>Seek professional help if you experience:</p>
+            <ul>
+                <li>Prolonged sadness or anxiety</li>
+                <li>Difficulty functioning daily</li>
+                <li>Substance abuse problems</li>
+                <li>Thoughts of self-harm</li>
+            </ul>
+        </div>
+
+        <!-- First Aid Section -->
+        <div id="firstaid" class="info-section">
+            <button class="back-button" onclick="goBack()">← Back to Categories</button>
+            <h2>First Aid</h2>
+            
+            <h3>Basic First Aid Kit</h3>
+            <p>Every home should have:</p>
+            <ul>
+                <li>Sterile bandages and gauze</li>
+                <li>Adhesive tape and plasters</li>
+                <li>Antiseptic solution</li>
+                <li>Pain relievers (paracetamol)</li>
+                <li>Thermometer</li>
+                <li>Scissors and tweezers</li>
+                <li>Disposable gloves</li>
+            </ul>
+
+            <h3>Common Emergencies</h3>
+            
+            <p><strong>Cuts and Wounds:</strong></p>
+            <ul>
+                <li>Wash hands before treating</li>
+                <li>Clean wound with clean water</li>
+                <li>Apply pressure to stop bleeding</li>
+                <li>Cover with sterile bandage</li>
+                <li>Seek medical help for deep cuts</li>
+            </ul>
+
+            <p><strong>Burns:</strong></p>
+            <ul>
+                <li>Cool the burn with running water (10-20 minutes)</li>
+                <li>Do not apply ice directly</li>
+                <li>Cover with clean cloth</li>
+                <li>Do not burst blisters</li>
+                <li>Seek medical help for serious burns</li>
+            </ul>
+
+            <p><strong>Choking:</strong></p>
+            <ul>
+                <li>Encourage coughing if person can breathe</li>
+                <li>Perform back blows (5 times)</li>
+                <li>Perform abdominal thrusts if needed</li>
+                <li>Call for emergency help</li>
+            </ul>
+
+            <p><strong>Fainting:</strong></p>
+            <ul>
+                <li>Lay person flat on back</li>
+                <li>Elevate legs above heart level</li>
+                <li>Loosen tight clothing</li>
+                <li>Check breathing and pulse</li>
+                <li>Seek medical help if not recovering</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p><strong>Info Med</strong> - A Kwara State Library Initiative</p>
+        <p>For medical emergencies, always call 112 or 767 or visit the nearest health facility</p>
+        <p style="margin-top: 1rem; font-size: 0.9rem;">© 2025 Kwara State Government. All rights reserved.</p>
+    </div>
+
+    <script>
+        function showCategory(categoryId) {
+            document.getElementById('mainContent').style.display = 'none';
+            const sections = document.querySelectorAll('.info-section');
+            sections.forEach(section => section.classList.remove('active'));
+            document.getElementById(categoryId).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function goBack() {
+            document.getElementById('mainContent').style.display = 'block';
+            const sections = document.querySelectorAll('.info-section');
+            sections.forEach(section => section.classList.remove('active'));
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function searchHealth() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            if (!query) {
+                alert('Please enter a search term');
+                return;
+            }
+
+            const keywords = {
+                'malaria': 'diseases',
+                'typhoid': 'diseases',
+                'fever': 'diseases',
+                'hypertension': 'diseases',
+                'blood pressure': 'diseases',
+                'pregnancy': 'maternal',
+                'baby': 'maternal',
+                'child': 'maternal',
+                'breastfeeding': 'maternal',
+                'food': 'nutrition',
+                'diet': 'nutrition',
+                'nutrition': 'nutrition',
+                'vaccine': 'vaccination',
+                'immunization': 'vaccination',
+                'depression': 'mental',
+                'anxiety': 'mental',
+                'stress': 'mental',
+                'mental': 'mental',
+                'first aid': 'firstaid',
+                'emergency': 'firstaid',
+                'wound': 'firstaid',
+                'burn': 'firstaid'
+            };
+
+            let found = false;
+            for (const keyword in keywords) {
+                if (query.includes(keyword)) {
+                    showCategory(keywords[keyword]);
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                alert('No results found. Please try browsing our categories or refine your search term.');
+            }
+        }
+
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchHealth();
+            }
+        });
+    </script>
+</body>
+</html>
